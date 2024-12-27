@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accident Severity Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Accident Severity Prediction</h2>
+        <form action="/predict" method="post">
+            <label for="light_conditions">Light Conditions:</label>
+            <select id="light_conditions" name="light_conditions" required>
+                <option value="0">Daylight</option>
+                <option value="1">Darkness</option>
+            </select>
+
+            <label for="sex_of_driver">Sex of Driver:</label>
+            <select id="sex_of_driver" name="sex_of_driver" required>
+                <option value="0">Male</option>
+                <option value="1">Female</option>
+            </select>
+
+            <label for="vehicle_type">Vehicle Type:</label>
+            <select id="vehicle_type" name="vehicle_type" required>
+                <option value="0">Car</option>
+                <option value="1">Bike</option>
+            </select>
+
+            <label for="speed_limit">Speed Limit :</label>
+            <input type="number" id="speed_limit" name="speed_limit" min="0" required>
+
+            <label for="road_type">Road Type:</label>
+            <select id="road_type" name="road_type" required>
+                <option value="0">Single Carriageway</option>
+                <option value="1">Dual Carriageway</option>
+            </select>
+
+            <label for="special_conditions">Special Conditions at Site:</label>
+            <select id="special_conditions" name="special_conditions" required>
+                <option value="0">None</option>
+                <option value="1">Weather Issues</option>
+            </select>
+
+            <label for="num_passengers">Number of Passengers :</label>
+            <input type="number" id="num_passengers" name="num_passengers" min="0" required>
+
+            <button type="submit">Predict</button>
+        </form>
+
+        <!-- Result section, initially hidden -->
+        <div class="result" id="predictionResult">
+            <h3>Prediction Result:</h3>
+            <p id="resultText">Your result will appear here.</p>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript to show result after prediction
+        const form = document.querySelector('form');
+        form.addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form submission for demonstration
+
+            // Get form values
+            const speedLimit = document.getElementById("speed_limit").value;
+            const numPassengers = document.getElementById("num_passengers").value;
+
+            // Validation: Check if speedLimit or numPassengers are negative (they shouldn't be)
+            if (speedLimit < 0 || numPassengers < 0) {
+                alert("Please enter only non-negative values!");
+                return;
+            }
+
+            // Normally, you would send data to the server here
+            // Mock result
+            const result = "Serious"; // Replace with actual prediction
+
+            // Display result
+            document.getElementById("resultText").innerText = "The predicted accident severity is: " + result;
+            document.getElementById("predictionResult").style.display = "block";
+        });
+    </script>
+</body>
+</html>
